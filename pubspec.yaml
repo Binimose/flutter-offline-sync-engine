@@ -1,0 +1,62 @@
+name: instagram_clone
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: ^4.7.3     # My state management #
+  flutter: 
+    sdk: flutter
+  flutter_screenutil: ^5.5.4          #used for responsive design
+  get_storage: ^2.0.3                 #used for storage
+  dio: ^5.9.2                         #used EVERY WHERE
+  font_awesome_flutter: ^10.2.1     
+  flutter_svg: ^2.0.10+1
+  infinite_scroll_pagination: ^5.1.1  #used EVERY WHERE
+  
+  carousel_slider: ^5.1.2            #used in post
+  smooth_page_indicator: ^2.0.1    #used in post
+  video_player: ^2.4.7               #used in post/story
+  image_picker: ^1.2.1               #used in add post/story
+  flutter_bounce: ^1.1.0
+  flutter_launcher_icons: ^0.14.4
+  mask_text_input_formatter: ^2.4.0  #used in signup
+  holding_gesture: ^1.1.0           
+  pausable_timer: ^3.1.0+3           #used in story
+  flutter_carousel_slider: ^1.0.9    #used in story
+  logger: ^2.7.0
+  animate_do: ^4.2.0                
+  cached_network_image: ^3.4.1
+  flutter_secure_storage: ^10.0.0
+  flutter_dotenv: ^6.0.0
+  flutter_cache_manager: ^3.4.1
+  visibility_detector: ^0.4.0+2
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.2
+
+dev_dependencies: 
+  flutter_lints: ^6.0.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.8
+
+  flutter_test: 
+    sdk: flutter
+  mockito: ^5.4.4
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - .env
+
+flutter_icons:
+  android: true
+  # background_color: "#ffffff"
+  image_path_android: assets/icons/instagram_app_icon.png
+

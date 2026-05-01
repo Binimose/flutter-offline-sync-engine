@@ -1,0 +1,49 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    // Required for AGP 9.0+
+    namespace "com.instagram_clone.instagram_clone"
+    compileSdk 36
+
+    compileOptions {
+        // Updated to Java 17/21 for compatibility with Gradle 9
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.instagram_clone.instagram_clone"
+        minSdkVersion 24 // Increased for better compatibility with modern tools
+        targetSdk 36
+        versionCode flutter.versionCode
+        versionName flutter.versionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            // Signing with the debug keys for now
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    // Removed the manual kotlin-stdlib line as it is now handled automatically by AGP 9.0
+}

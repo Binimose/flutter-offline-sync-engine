@@ -1,0 +1,121 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:instagram_clone/app.dart';
+import 'package:instagram_clone/core/network/api_service.dart';
+import 'package:instagram_clone/core/services/feed_cache_service.dart';
+import 'package:instagram_clone/core/services/image_cache_service.dart';
+import 'package:instagram_clone/core/services/storage_service.dart';
+import 'package:instagram_clone/core/services/video_service.dart';
+import 'package:instagram_clone/core/theme/my_theme.dart';
+import 'package:instagram_clone/core/utils/logger.dart';
+import 'package:instagram_clone/features/auth/bindings/auth_binding.dart';
+import 'package:instagram_clone/features/auth/controllers/auth_controller.dart';
+import 'package:instagram_clone/features/auth/views/signin_view.dart';
+import 'package:instagram_clone/features/root/controllers/app_controller.dart';
+import 'package:instagram_clone/routes/app_pages.dart';
+import 'package:instagram_clone/shared/error_widget.dart';
+import 'package:logger/logger.dart';
+
+/// Global helper for logging. In a senior project, we use Get.find(Logger)
+/// but keeping this for easy global access during refactoring.
+Logger get logger => Get.find<Logger>();
+
+Future<void> main() async {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    // Handle Flutter UI Errors
+    FlutterError.onError = (FlutterErrorDetails details) {
+      AppLogger.error('Flutter UI Error', details.exception, details.stack);
+    };
+
+    ErrorWidget.builder =
+        (FlutterErrorDetails details) => MyErrorWidget(details);
+
+    // Load Environment Variables
+    await dotenv.load(fileName: ".env");
+
+    // Initialize Core Services
+    await Get.putAsync(() => StorageService().init());
+    Get.put(Logger());
+    await Get.putAsync(() => ApiService().init());
+
+    // Initialize Offline Cache Service
+    await FeedCacheService().init();
+    AuthBinding().dependencies();
+
+    // Inject global services
+    Get.put(VideoService());
+    Get.lazyPut(() => AppController(), fenix: true);
+
+    // Clear Isar Feed Cache (Posts/Reels)
+    // await FeedCacheService().clearCache();
+
+    // Clear Image Cache
+    await ImageCacheService().clearCache();
+
+    // Clear Video Cache
+    // await VideoService.to.clearCache();
+
+    runApp(const Main());
+  }, (error, stack) {
+    // Handle Unhandled Asynchronous Errors
+    AppLogger.error('Unhandled Async Error', error, stack);
+  });
+}
+
+class Main extends StatelessWidget {
+  const Main({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      builder: (context, child) => GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Instagram clone",
+          getPages: AppPages.routes,
+          theme: MyTheme.getThemeData(),
+          darkTheme: MyTheme.getDarkThemeData(),
+          themeMode: ThemeMode.system,
+          builder: (context, widget) {
+            return MediaQuery(
+              // but we want our app font to still the same and dont get affected
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: const TextScaler.linear(1.0)),
+              child: widget!,
+            );
+          },
+          home: Builder(
+            builder: (context) {
+              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+              final isDarkMode =
+                  Theme.of(context).brightness == Brightness.dark;
+              SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                statusBarIconBrightness:
+                    isDarkMode ? Brightness.light : Brightness.dark,
+                systemNavigationBarColor: Colors.transparent,
+                systemNavigationBarIconBrightness:
+                    isDarkMode ? Brightness.light : Brightness.dark,
+              ));
+
+              return Container(
+                padding:
+                    EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: Get.find<AuthController>().isAuthorized
+                      ? MyApp()
+                      : SigninView(),
+                ),
+              );
+            },
+          )),
+    );
+  }
+}
