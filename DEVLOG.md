@@ -2,3 +2,4 @@
 
 - **[2026-05-01 11:22:13]** (1) feat(database): configure Isar local database collections
 - **[2026-05-01 14:39:36]** (2) refactor(sync): implement background mutation queue manager
+- **[2026-05-01 17:56:59]** (3) fix(conflict): resolve last-write-wins timestamp collision
