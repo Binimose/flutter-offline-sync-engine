@@ -4,3 +4,4 @@
 - **[2026-05-01 14:39:36]** (2) refactor(sync): implement background mutation queue manager
 - **[2026-05-01 17:56:59]** (3) fix(conflict): resolve last-write-wins timestamp collision
 - **[2026-05-02 10:29:26]** (4) perf(batch): batch bulk entity insertions into single transaction
+- **[2026-05-02 13:46:49]** (5) test(queue): test offline creation and subsequent online sync
