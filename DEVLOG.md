@@ -10,3 +10,4 @@
 - **[2026-05-03 14:53:02]** (8) feat(database): configure Isar local database collections
 - **[2026-05-03 17:10:25]** (9) refactor(sync): implement background mutation queue manager
 - **[2026-05-03 20:27:48]** (10) fix(conflict): resolve last-write-wins timestamp collision
+- **[2026-05-04 10:43:52]** (11) perf(batch): batch bulk entity insertions into single transaction
