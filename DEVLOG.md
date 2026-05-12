@@ -36,3 +36,4 @@
 - **[2026-05-11 11:32:23]** (34) ui(status): add offline indicator banner widget
 - **[2026-05-11 14:49:46]** (35) docs(schema): document offline entity relationships
 - **[2026-05-11 17:06:09]** (36) feat(database): configure Isar local database collections
+- **[2026-05-12 10:39:36]** (37) refactor(sync): implement background mutation queue manager
