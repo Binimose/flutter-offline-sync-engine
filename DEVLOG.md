@@ -49,3 +49,4 @@
 - **[2026-05-15 11:00:15]** (47) test(queue): test offline creation and subsequent online sync
 - **[2026-05-15 14:17:38]** (48) ui(status): add offline indicator banner widget
 - **[2026-05-15 17:34:01]** (49) docs(schema): document offline entity relationships
+- **[2026-05-15 20:51:24]** (50) feat(database): configure Isar local database collections
