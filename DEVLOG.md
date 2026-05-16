@@ -51,3 +51,4 @@
 - **[2026-05-15 17:34:01]** (49) docs(schema): document offline entity relationships
 - **[2026-05-15 20:51:24]** (50) feat(database): configure Isar local database collections
 - **[2026-05-16 10:07:28]** (51) refactor(sync): implement background mutation queue manager
+- **[2026-05-16 13:24:51]** (52) fix(conflict): resolve last-write-wins timestamp collision
