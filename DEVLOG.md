@@ -69,3 +69,4 @@
 - **[2026-05-21 11:42:33]** (67) perf(batch): batch bulk entity insertions into single transaction
 - **[2026-05-21 14:59:56]** (68) test(queue): test offline creation and subsequent online sync
 - **[2026-05-21 17:16:19]** (69) ui(status): add offline indicator banner widget
+- **[2026-05-21 20:33:42]** (70) docs(schema): document offline entity relationships
