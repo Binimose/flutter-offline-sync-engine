@@ -89,3 +89,4 @@
 - **[2026-05-27 11:24:51]** (87) fix(conflict): resolve last-write-wins timestamp collision
 - **[2026-05-27 14:41:14]** (88) perf(batch): batch bulk entity insertions into single transaction
 - **[2026-05-27 17:58:37]** (89) test(queue): test offline creation and subsequent online sync
+- **[2026-05-27 20:15:00]** (90) ui(status): add offline indicator banner widget
